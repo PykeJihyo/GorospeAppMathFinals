@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Check")]
     public Transform groundCheck;
-    public float groundCheckDistance = 0.6f; // slightly larger to ensure detection
+    public float groundCheckDistance = 0.6f;
     public LayerMask groundLayers;
 
     private Vector3 velocity = Vector3.zero;
@@ -39,10 +39,10 @@ public class PlayerController : MonoBehaviour
     {
         float dt = Time.deltaTime;
 
-        // Ground check
+
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckDistance, groundLayers);
 
-        // Horizontal input
+
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputZ = Input.GetAxisRaw("Vertical");
         Vector3 input = new Vector3(inputX, 0f, inputZ);
@@ -53,25 +53,25 @@ public class PlayerController : MonoBehaviour
         velocity.x = horizVel.x;
         velocity.z = horizVel.z;
 
-        // Jump
+
         if (isGrounded && verticalVelocity <= 0f && Input.GetButtonDown("Jump"))
         {
             verticalVelocity = jumpVelocity;
         }
 
-        // Gravity
+
         float effectiveGravity = gravity;
         if (verticalVelocity > 0f) effectiveGravity *= ascendGravityMultiplier;
         else effectiveGravity *= descendGravityMultiplier;
 
         verticalVelocity += effectiveGravity * dt;
 
-        // Prevent falling through ground
+
         if (isGrounded && verticalVelocity < 0f)
         {
             verticalVelocity = 0f;
 
-            // Snap to ground
+
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 2f, groundLayers))
             {
