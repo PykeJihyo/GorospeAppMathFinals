@@ -32,10 +32,7 @@ public class Fireball : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            enemy.Die();
-        }
+
 
 
         if (!other.CompareTag("Player"))

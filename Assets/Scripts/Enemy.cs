@@ -9,13 +9,18 @@ public class Enemy : MonoBehaviour
             PlayerController p = other.GetComponent<PlayerController>();
             if (p.isInvincible)
             {
-                Destroy(gameObject);
+                Die();
             }
         }
 
         if (other.GetComponent<Fireball>() != null)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
